@@ -8,9 +8,15 @@ jobs:
         steps:
             - name: checkout repo
               uses: actions/checkout@v6
-            - name: welcome
-              run: echo "My first github"
-            - name: list files
-              run: ls
-            - name: read file
-              run: cat README.md
+            # - name: welcome
+            #   run: echo "My first github"
+            # - name: list files
+            #   run: ls
+            # - name: read file
+            #   run: cat README.md
+
+            - name: run commands 
+              run: |
+                echo "Try multiple commands in one step config"
+                ls -latr
+                cat README.md
