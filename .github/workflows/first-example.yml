@@ -22,5 +22,6 @@ jobs:
             #     cat README.md
             - name: Execute shell script
               run: |
+                ls -latr
                 chmod +x run-commands.sh
                 ./run-commands.sh
