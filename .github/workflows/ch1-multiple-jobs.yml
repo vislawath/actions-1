@@ -7,7 +7,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Install cowsay program
-          run: sugo apt-get install cowsay -y
+          run: sudo apt-get install cowsay -y
         - name: Execute cowsay CMD
           run: cowsay -f dragon "Run for a cover, I am a dragon." >> dragon.txt
         - name: sleep for 3O secs
