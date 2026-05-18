@@ -12,6 +12,12 @@ jobs:
           run: cowsay -f dragon "Run for a cover, I am a dragon." >> dragon.txt
         # - name: sleep for 3O secs
         #   run: sleep 30
+        - name: Upload artifact
+          uses: actions/upload-artifact@v7
+          with: 
+            name: dragon-text-file
+            path: dragon.txt
+
 
     test_job:
       needs: build_job
@@ -19,13 +25,23 @@ jobs:
       steps:
         # - name: Sleep for 10 seconds
         #   run: sleep 10
+        - name: Download artifact
+          uses: actions/download-artifact@v7
+          with:
+            name: dragon-text-file
+          
         - name: Test file exists
           run: grep -i "dragon" dragon.txt
+      
 
     deploy_job:
       needs: [build_job, test_job]
       runs-on: ubuntu-latest
       steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v7
+          with:
+            name: dragon-text-file
         - name: Read file
           run: cat README.md
         - name: Deploy
