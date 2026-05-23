@@ -5,47 +5,48 @@ name: Multiple Job workflow
 
 on: push
 
-jobs: 
-    build_job:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Install cowsay program
-          run: sudo apt-get install cowsay -y
-        - name: Execute cowsay CMD
-          run: cowsay -f dragon "Run for a cover, I am a dragon." >> dragon.txt
-        # - name: sleep for 3O secs
-        #   run: sleep 30
-        - name: Upload artifact
-          uses: actions/upload-artifact@v7
-          with: 
-            name: dragon-text-file
-            path: dragon.txt
+jobs:
+  build_job:
+    if: false # This is to prevent the workflow from running accidentally.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install cowsay program
+        run: sudo apt-get install cowsay -y
+      - name: Execute cowsay CMD
+        run: cowsay -f dragon "Run for a cover, I am a dragon." >> dragon.txt
+      # - name: sleep for 3O secs
+      #   run: sleep 30
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dragon-text-file
+          path: dragon.txt
 
+  test_job:
+    if: false # This is to prevent the workflow from running accidentally.
+    needs: build_job
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Sleep for 10 seconds
+      #   run: sleep 10
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dragon-text-file
 
-    test_job:
-      needs: build_job
-      runs-on: ubuntu-latest
-      steps:
-        # - name: Sleep for 10 seconds
-        #   run: sleep 10
-        - name: Download artifact
-          uses: actions/download-artifact@v7
-          with:
-            name: dragon-text-file
-          
-        - name: Test file exists
-          run: grep -i "dragon" dragon.txt
-      
+      - name: Test file exists
+        run: grep -i "dragon" dragon.txt
 
-    deploy_job:
-      needs: [build_job, test_job]
-      runs-on: ubuntu-latest
-      steps:
-        - name: Download artifact
-          uses: actions/download-artifact@v7
-          with:
-            name: dragon-text-file
-        - name: Read file
-          run: cat dragon.txt
-        - name: Deploy
-          run: echo "Deploying ..."
+  deploy_job:
+    if: false # This is to prevent the workflow from running accidentally.
+    needs: [build_job, test_job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dragon-text-file
+      - name: Read file
+        run: cat dragon.txt
+      - name: Deploy
+        run: echo "Deploying ..."

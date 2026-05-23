@@ -6,25 +6,26 @@ name: My workflow
 on: push
 
 jobs: 
-    first_job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout repo
-              uses: actions/checkout@v6
-            # - name: welcome
-            #   run: echo "My first github"
-            # - name: list files
-            #   run: ls
-            # - name: read file
-            #   run: cat README.md
+  first_job:
+    if: false # This is to prevent the workflow from running accidentally.
+    runs-on: ubuntu-latest
+    steps:
+        - name: checkout repo
+          uses: actions/checkout@v6
+        # - name: welcome
+        #   run: echo "My first github"
+        # - name: list files
+        #   run: ls
+        # - name: read file
+        #   run: cat README.md
 
-            # - name: run commands 
-            #   run: |
-            #     echo "Try multiple commands in one step config"
-            #     ls -latr
-            #     cat README.md
-            - name: Execute shell script
-              run: |
-                ls -latr
-                chmod +x run-commands.sh
-                ./run-commands.sh
+        # - name: run commands 
+        #   run: |
+        #     echo "Try multiple commands in one step config"
+        #     ls -latr
+        #     cat README.md
+        - name: Execute shell script
+          run: |
+            ls -latr
+            chmod +x run-commands.sh
+            ./run-commands.sh
