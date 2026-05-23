@@ -1,3 +1,6 @@
+# Workflow: Single-job example
+# Summary: Runs a single Ubuntu job that checks out the repository
+# and executes the local shell script run-commands.sh.
 name: My workflow
 
 on: push
