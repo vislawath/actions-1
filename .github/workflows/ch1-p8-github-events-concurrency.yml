@@ -1,9 +1,9 @@
 
-name: Github events example - schedule
+name: Github events example - concurrency
 
 on:
   workflow_dispatch:
-    
+
 jobs:
   docker:
     runs-on: ubuntu-latest
