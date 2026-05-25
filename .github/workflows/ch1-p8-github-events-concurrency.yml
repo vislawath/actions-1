@@ -1,5 +1,5 @@
 
-name: Github events example - concurrency
+name: ch1-p8 Github events example - concurrency
 
 on:
   workflow_dispatch:
@@ -24,7 +24,11 @@ jobs:
     concurrency: 
       group: prod-deploy
       cancel-in-progress: true
-
+    
+      
     steps:
       - name: Deploy
-        run: echo "docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
+        run: |
+          echo "docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
+          sleep 2 # Simulate a long-running deployment process
+

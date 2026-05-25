@@ -1,7 +1,7 @@
 # Workflow: Multiple-job example
 # Summary: Demonstrates dependent build, test, and deploy jobs
 # using artifacts shared between jobs.
-name: Multiple Job workflow
+name: ch1-p2 Multiple Job workflow
 
 on: push
 

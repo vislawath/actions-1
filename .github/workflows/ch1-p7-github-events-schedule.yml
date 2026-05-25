@@ -1,5 +1,5 @@
 
-name: Github events example - schedule
+name: ch1-p7Github events example - schedule
 
 on:
   schedule:
