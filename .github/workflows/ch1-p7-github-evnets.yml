@@ -1,7 +1,9 @@
 
-name: Use variables and secrets from repository settings
+name: Github events example - schedule
 
-on: push
+on:
+  schedule:
+    - cron: "*/5 * * * *" # every 5 minutes
 
 jobs:
   docker:
