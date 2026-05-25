@@ -1,0 +1,30 @@
+
+name: Github events example - schedule
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker build
+        run: echo "docker build -t ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
+
+      - name: Docker login
+        run: echo "docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}"
+
+      - name: Docker publish
+        run: echo "docker push -t ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
+
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    concurrency: 
+      group: prod-deploy
+      cancel-in-progress: true
+
+    steps:
+      - name: Deploy
+        run: echo "docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
