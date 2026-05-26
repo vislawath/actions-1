@@ -8,9 +8,18 @@ on:
 jobs:
   deploy:
     strategy:
+      fail-fast: false # Continue running all matrix combinations even if one fails
+      max-parallel: 2 # Limit the number of concurrent jobs to prevent resource exhaustion
       matrix:
         os: [ubuntu-latest, ubuntu-20.04, windows-latest]
         images: [hello-world, alpine]
+        exclude:
+          - os: windows-latest
+            images: alpine # Alpine image is not compatible with Windows OS
+        include:
+          - os: ubuntu-20.04
+            images: amd64/alpine
+
     runs-on: ${{ matrix.os }}
     steps:
       - name: Echo docker info
