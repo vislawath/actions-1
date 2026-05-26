@@ -21,6 +21,8 @@ jobs:
   deploy:
     needs: docker
     runs-on: ubuntu-latest
+    timeout-minutes: 1 # Set a job-leveltimeout to prevent long-running deployments
+
     concurrency: 
       group: prod-deploy
       cancel-in-progress: true
@@ -28,6 +30,7 @@ jobs:
       
     steps:
       - name: Deploy
+        timeout-minutes: 1 # Set a step-level timeout to prevent long-running deployments
         run: |
           echo "docker run -d -p 8080:80 ${{vars.CONTAINER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{vars.IMAGE_NAME}}:latest"
           sleep 120s # Simulate a long-running deployment process

@@ -1,0 +1,28 @@
+
+name: ch1-p8 Matrix configuration example
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  deploy-on-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo docker info
+        run: docker info
+
+      - name: Run image
+        run: docker run hello-world
+  deploy-on-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Echo docker info
+        run: docker info
+
+      - name: Run image
+        run: docker run hello-world
+
+
